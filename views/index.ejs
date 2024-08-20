@@ -1,0 +1,84 @@
+<%- include('./partials/header') %>
+
+<% if (error.length > 0) { %>
+    <div class="absolute top-5 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500">
+        <span class="text-white">
+            <%= error %>
+        </span>
+    </div>
+<% } %>
+
+<div class="w-full h-screen flex px-20 bg-gray-100">
+    <!-- Registration Form -->
+    <div class="w-1/2 flex items-center justify-center h-screen">
+        <div class="w-full max-w-md px-8 py-6 bg-white shadow-lg rounded-lg">
+            <h3 class="text-4xl font-semibold mb-4">Welcome to <span class="text-blue-500">Scatch</span></h3>
+            <h4 class="text-2xl mb-6">Create Your Account</h4>
+            <form autocomplete="off" action="/users/register" method="post">
+                <div class="relative mb-4">
+                    <input
+                        class="bg-gray-100 block w-full px-10 py-2 border rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        type="text" placeholder="Full Name" name="fullname">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 16s-2-2-4-2-4 2-4 2v4h8v-4zM12 12a3 3 0 1 0-3-3 3 3 0 0 0 3 3z" /></svg>
+                </div>
+                <div class="relative mb-4">
+                    <input
+                        class="bg-gray-100 block w-full px-10 py-2 border rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        type="email" placeholder="Email" name="email">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h18M3 7l9 9 9-9M4 15h16" /></svg>
+                </div>
+                <div class="relative mb-6">
+                    <input
+                        id="register-password"
+                        class="bg-gray-100 block w-full px-10 py-2 border rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        type="password" placeholder="Password" name="password">
+                    <svg id="show-password-icon" class="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5a7.5 7.5 0 0 0-7.5 7.5A7.5 7.5 0 0 0 12 19.5a7.5 7.5 0 0 0 7.5-7.5A7.5 7.5 0 0 0 12 4.5zM12 13.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" /></svg>
+                </div>
+                <input class="w-full px-5 py-3 bg-blue-500 text-white rounded-full cursor-pointer hover:bg-blue-600" type="submit" value="Create My Account">
+            </form>
+        </div>
+    </div>
+
+    <!-- Login Form -->
+    <div class="w-1/2 flex items-center justify-center h-screen">
+        <div class="w-full max-w-md px-8 py-6 bg-white shadow-lg rounded-lg">
+            <h4 class="text-2xl font-semibold mb-6">Login to Your Account</h4>
+            <form autocomplete="off" action="/users/login" method="post">
+                <div class="relative mb-4">
+                    <input
+                        class="bg-gray-100 block w-full px-10 py-2 border rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        type="email" placeholder="Email" name="email">
+                    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h18M3 7l9 9 9-9M4 15h16" /></svg>
+                </div>
+                <div class="relative mb-6">
+                    <input
+                        id="login-password"
+                        class="bg-gray-100 block w-full px-10 py-2 border rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        type="password" placeholder="Password" name="password">
+                    <svg id="show-login-password-icon" class="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5a7.5 7.5 0 0 0-7.5 7.5A7.5 7.5 0 0 0 12 19.5a7.5 7.5 0 0 0 7.5-7.5A7.5 7.5 0 0 0 12 4.5zM12 13.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" /></svg>
+                </div>
+                <input class="w-full px-5 py-3 bg-blue-500 text-white rounded-full cursor-pointer hover:bg-blue-600" type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('show-password-icon').addEventListener('click', function() {
+        const passwordInput = document.getElementById('register-password');
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        this.classList.toggle('text-gray-600');
+        this.classList.toggle('text-gray-400');
+    });
+
+    document.getElementById('show-login-password-icon').addEventListener('click', function() {
+        const passwordInput = document.getElementById('login-password');
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        this.classList.toggle('text-gray-600');
+        this.classList.toggle('text-gray-400');
+    });
+</script>
+
+<%- include('./partials/footer') %>

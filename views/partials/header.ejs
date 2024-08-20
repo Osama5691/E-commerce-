@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .nav-link {
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #ff6f61; /* Change to your desired hover color */
+            transform: scale(1.05);
+        }
+        .nav-brand {
+            transition: color 0.3s ease;
+        }
+        .nav-brand:hover {
+            color: #ff6f61; /* Change to your desired hover color */
+        }
+    </style>
+</head>
+
+<body class="font-['Helvetica_Now_Display'] bg-gray-100">
+    <nav class="w-full flex items-center justify-between px-6 py-4 bg-white shadow-md border-b border-gray-200">
+        <div class="flex items-center gap-3">
+            <i class="ri-pencil-ruler-2-line text-2xl text-gray-700 nav-brand"></i>
+            <h3 class="text-2xl font-semibold text-gray-800 nav-brand">Scatch</h3>
+        </div>
+        <% var loggedin = typeof loggedin !== "undefined" ? loggedin : true %>
+        <% if (loggedin) { %>
+            <div class="flex gap-6">
+                <a href="/shop" class="nav-link text-gray-700 hover:text-gray-900">Shop</a>
+                <a href="/cart" class="nav-link text-gray-700 hover:text-gray-900">Cart</a>
+                <a href="/owners/Admin">Create</a>
+                <a href="/myaccount" class="nav-link text-gray-700 hover:text-gray-900">My Account</a>
+                <a href="/users/logout" class="nav-link text-red-600 hover:text-red-700">Logout</a>
+            </div>
+        <% } %>
+    </nav>
+</body>
+
+</html>
