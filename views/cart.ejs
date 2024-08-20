@@ -1,5 +1,6 @@
 <%- include('./partials/header') %>
 
+
 <div class="container mx-auto px-4 py-8">
     <% if (user.cart.length > 0) { %>
         <!-- Cart Items -->
@@ -77,46 +78,3 @@
 
 <%- include('./partials/footer') %>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const increaseButtons = document.querySelectorAll('.increase-btn');
-    const decreaseButtons = document.querySelectorAll('.decrease-btn');
-
-    increaseButtons.forEach(button => {
-        button.addEventListener('click', () => updateQuantity(button, 1));
-    });
-
-    decreaseButtons.forEach(button => {
-        button.addEventListener('click', () => updateQuantity(button, -1));
-    });
-
-    function updateQuantity(button, change) {
-        const itemId = button.getAttribute('data-id');
-        const quantityDisplay = document.querySelector(`.quantity-display[data-id="${itemId}"]`);
-        let quantity = parseInt(quantityDisplay.textContent);
-
-        if (quantity + change >= 1) { // Ensure quantity does not drop below 1
-            quantity += change;
-            quantityDisplay.textContent = quantity;
-
-            // Send the updated quantity to the server
-            fetch(`/cart/update/${itemId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ quantity })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Optionally update total bill or handle success
-                console.log('Quantity updated:', data);
-                // You may also want to re-render or update the total bill here
-            })
-            .catch(error => {
-                console.error('Error updating quantity:', error);
-            });
-        }
-    }
-});
-</script>
