@@ -76,5 +76,77 @@
     <% } %>
 </div>
 
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const increaseButtons = document.querySelectorAll('.increase-btn');
+        const decreaseButtons = document.querySelectorAll('.decrease-btn');
+
+        increaseButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const itemId = this.getAttribute('data-id');
+                updateQuantity(itemId, 1);
+            });
+        });
+
+        decreaseButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const itemId = this.getAttribute('data-id');
+                updateQuantity(itemId, -1);
+            });
+        });
+
+        function updateQuantity(itemId, change) {
+            const quantityDisplay = document.querySelector(`.quantity-display[data-id="${itemId}"]`);
+            const currentQuantity = parseInt(quantityDisplay.textContent);
+            const newQuantity = Math.max(currentQuantity + change, 1); // Ensure quantity doesn't go below 1
+
+            quantityDisplay.textContent = newQuantity;
+
+            // Optionally, send updated quantity to the server
+            fetch('/update-cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ itemId: itemId, quantity: newQuantity })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Recalculate total and update UI as necessary
+                    updateCartUI(data.cart);
+                } else {
+                    console.error('Failed to update cart');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function updateCartUI(cart) {
+    let totalBill = 0;
+    cart.forEach(item => {
+        const itemPrice = Number(item.price);
+        const itemDiscount = Number(item.discount);
+        const itemQuantity = Number(item.quantity || 1);
+        const itemTotal = (itemPrice - itemDiscount) * itemQuantity;
+
+        totalBill += itemTotal;
+
+        // Update the item total in the UI
+        document.querySelector(`.quantity-display[data-id="${item.id}"]`).textContent = itemQuantity;
+        document.querySelector(`.flex[data-id="${item.id}"] .text-xl.font-bold`).textContent = `₹ ${itemTotal}`;
+    });
+
+    // Update the total bill in the summary
+    document.querySelector('.total-bill').textContent = `₹ ${totalBill}`;
+    document.querySelector('.total-amount').textContent = `₹ ${totalBill + 20}`;
+}
+
+    });
+</script>
+
+
 <%- include('./partials/footer') %>
 
